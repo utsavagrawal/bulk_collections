@@ -99,7 +99,7 @@ button{font:inherit;color:inherit}
 .steps i{display:block;width:18px;height:4px;background:var(--line);transition:background .2s}
 .steps i.on{background:var(--accent)}
 h2{margin:0;font:800 clamp(38px,8vw,60px)/.9 var(--font-display);text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
-h2.mega{font-weight:900;font-size:clamp(48px,14vw,160px);line-height:.84;letter-spacing:-.01em;overflow-wrap:anywhere}
+h2.mega{font-weight:900;font-size:clamp(32px,min(10.8vw,96px),96px);line-height:.88;letter-spacing:-.01em;white-space:nowrap}
 .lede{margin:0;font-size:clamp(18px,3.4vw,22px);color:var(--muted);max-width:30ch}
 .facts{display:flex;flex-wrap:wrap;gap:10px 32px}
 .facts div{display:flex;flex-direction:column}
@@ -253,7 +253,7 @@ pre{margin:0;font-size:12.5px;line-height:1.5;overflow:hidden}
 @media (hover:hover){.blur:hover .num{filter:none}}
 .blur.big{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;--bl:16px}
 .rv small{display:block;font:500 11px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.rv b{display:block;font:900 clamp(56px,14vw,104px)/.9 var(--font-display);color:var(--accent);font-variant-numeric:tabular-nums}
+.rv b{display:block;font:900 clamp(56px,14vw,104px)/1.12 var(--font-display);color:var(--accent);font-variant-numeric:tabular-nums;margin:6px 0}
 .rv.was b{color:var(--ink)}
 .rv em{font:500 11px var(--font-mono);font-style:normal;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
 .rarr{font:800 clamp(34px,8vw,56px)/1 var(--font-display);color:var(--accent);align-self:center}
@@ -289,6 +289,31 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
 .hb-me .lg2{opacity:.65}
 @media (max-width:600px){.hud-bar{height:38px}.hb-me{width:54px;height:36px}.hb-line,.hb-fill{bottom:3px}}
 @media (prefers-reduced-motion: reduce){.revhint svg,.try svg,.pulse,input.thr.nudge::-webkit-slider-thumb,input.thr.nudge::-moz-range-thumb{animation:none}}
+
+/* Enablement tree */
+.tree{display:flex;flex-direction:column;align-items:center;max-width:720px}
+.tree>*{width:100%}
+.tn{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:4px;padding:7px 12px;cursor:pointer;max-width:460px;opacity:.28;transition:opacity .3s,border-color .3s}
+.tn b,.br b{font:800 19px/1.1 var(--font-display);text-transform:uppercase;letter-spacing:.01em}
+.tn .d,.br .d{font-size:13px;line-height:1.35;color:var(--muted);flex-basis:100%}
+.tc{display:block;width:2px!important;height:14px;background:var(--line);transition:background .3s}
+.tn.on,.br.on,.res2.on{opacity:1}
+.tn.on{border-color:var(--ink)}
+.tc.on{background:var(--accent)}
+.fork{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-top:14px;position:relative}
+.fork::before{content:"";position:absolute;top:0;left:25%;right:25%;height:14px;border:2px solid var(--line);border-bottom:0}
+.fork.on::before{border-color:var(--accent)}
+.br{display:flex;flex-direction:column;align-items:flex-start;gap:6px;border:1.5px solid var(--line);background:var(--surface);border-radius:4px;padding:10px 12px;opacity:.28;transition:opacity .3s,border-color .3s}
+.br.on{border-color:var(--accent)}
+.nf{display:flex;align-items:center;gap:6px;font:500 13px var(--font-mono);color:var(--muted)}
+.nf input{width:7em;padding:6px 8px;border:1.5px solid var(--ink);border-radius:4px;background:var(--bg);color:var(--ink);font:500 14px var(--font-mono)}
+.pcard{border:1.5px solid var(--accent);background:var(--accent-soft);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;align-items:flex-start;width:100%}
+.pcard b{font:800 22px/1 var(--font-display);color:var(--accent)}
+.pcard span:not(.btn){font-size:13px}
+.res2{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;border:1.5px solid var(--accent);background:var(--accent-soft);border-radius:4px;padding:8px 12px;opacity:.28;transition:opacity .3s}
+.res2 b{font:800 26px/1 var(--font-display);text-transform:uppercase}
+.res2 .blur{--bl:7px}
+@media (max-width:520px){.tn .d{display:none}.tn{padding:5px 12px}.fork{grid-template-columns:1fr}.fork::before{display:none}.br:nth-child(2) .d{display:none}.pcard small{display:none}.tc{height:10px}.stage[data-key=find] h2{font-size:32px}.stage[data-key=find] .pin{gap:8px;padding-bottom:8px}}
 
 /* LinkedIn pointers + scroll to top */
 .li{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font:500 12px var(--font-mono);letter-spacing:.04em;border-bottom:1.5px solid transparent;width:fit-content}
@@ -358,10 +383,6 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
       {l:'Dispatch',t:'Architected',d:'A gRPC call sends the invoice and payment link by SMS or email.'},
       {l:'Pay',t:'Architected',d:'Patients pay in the Stripe-powered portal with any one method below.'},
       {l:'Receipt',t:'Architected',d:'A post-payment receipt goes back to the patient.'}]},
-    find:{nodes:[
-      {l:'Live balance data',t:'Found',d:'Real-time database totals show what each location has outstanding.'},
-      {l:'Sales enablement',t:'Drove',d:'Those totals go into in-product prompts and sales conversations to drive adoption.'},
-      {l:'Financing lines',t:'Drove',try:1,d:'Balances above a configurable $3,000 open parallel products: EMI and third-party financing. Try the threshold.'}]},
     loop:{nodes:[
       {l:'Launch',t:'',d:'Most teams hand off here and move on.'},
       {l:'Audit data',t:'Drove',d:'Keep reading the data after launch.'},
@@ -382,7 +403,7 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
     ingest:[{f_ingest:0},{f_ingest:1},{f_ingest:2}],
     core:[{f_core:0,auto:true},{f_core:1,auto:true},{f_core:2,auto:true}],
     journey:[{f_journey:0},{f_journey:1},{f_journey:2},{f_journey:3}],
-    find:[{f_find:0,view:'live'},{f_find:1,view:'prompt'},{f_find:2,view:'fin'}],
+    find:[{f_find:0},{f_find:1},{f_find:2},{f_find:3}],
     culture:[{f_loop:0},{f_loop:1},{f_loop:2},{f_loop:3},{f_loop:4}]
   };
 
@@ -390,7 +411,7 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
   var ROWS=[['Jordan Lee',12450],['Priya Shah',8600],['Marcus Cole',31275],['Elena Ruiz',4820],['Sam Okafor',54000],['Dana Wu',21530]];
   var BALS=[420,1150,2800,3400,5200,7900];
   var LIVE=[['Location A',48200],['Location B',31750],['Location C',19400],['Location D',8900]];
-  var S={fr:{},pc:0,out:48200,thr:3000,sel:[],pm:null,st:'created',dv:['SMS'],touched:false,revealed:false,scrolled:false,nudged:false};
+  var S={fr:{},pc:0,out:48200,thr:3000,sel:[],pm:null,st:'created',dv:['SMS'],touched:false,revealed:false,scrolled:false,nudged:false,pcOn:false};
   var T2=0,CH=1;
   Object.keys(FR).forEach(function(k){Object.assign(S,FR[k][0]);S.fr[k]=0});
 
@@ -416,6 +437,7 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
     '<text class="kt" x="325" y="118" text-anchor="middle">+ NAME, PHONE</text>'+
     '<g class="pks"></g></svg>';
 
+  function tn(s,tag,title,desc){return '<button class="tn" type="button" data-s="'+s+'"><span class="tag t-'+tag.toLowerCase()+'">'+tag+'</span><b>'+title+'</b><span class="d">'+desc+'</span></button>'}
   function par(label,attr,items,sep){
     return '<div class="par"><span class="cap">'+label+'</span><div class="seg" role="group" aria-label="'+label+'">'+items.map(function(it,i){
       return (i?'<span class="or">'+sep+'</span>':'')+'<button class="chip" type="button" '+attr+' data-val="'+it[0]+'" aria-pressed="false">'+(attr.indexOf('"st"')>0?'<i class="dot d-'+it[0]+'"></i>':'')+it[1]+'</button>';
@@ -467,16 +489,23 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
     '</div></section>'+
 
     '<section class="stage" data-key="find" data-name="Enablement"><div class="pin">'+
-      '<div class="eyebrow"><span>Real-time data</span></div><h2>Enablement</h2>'+ flow('find')+
-      '<div class="views">'+
-        '<div class="live" data-view="live"><small class="ex">Outstanding balances, live from the database &middot; example</small>'+
-          LIVE.map(function(l){return '<div class="lv"><span>'+l[0]+'</span><i style="width:'+Math.round(l[1]/48200*100)+'%"></i><b>'+money(l[1])+'</b></div>'}).join('')+'</div>'+
-        '<div data-view="prompt" hidden><div class="banner" data-out="banner"></div>'+
-          '<div class="out"><label for="out-'+c+'">Location balance <b data-out="outval">$48,200</b></label><input id="out-'+c+'" type="range" min="5000" max="120000" step="500" value="48200" data-in="out"></div></div>'+
-        '<div data-view="fin" hidden>'+
-          '<p class="try"><span class="tag t-drove">Try it</span><span>Drag the threshold. See which balances open EMI and financing.</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></p>'+
-          '<div class="out"><label for="thr-'+c+'">Financing threshold <b data-out="thrval">$3,000</b></label><input class="thr nudge" id="thr-'+c+'" type="range" min="500" max="10000" step="500" value="3000" data-in="thr" aria-label="Financing threshold in dollars"></div>'+
-          '<div class="fin" data-out="fin"></div><p class="finsum" data-out="finsum"></p></div>'+
+      '<div class="eyebrow"><span>AI-driven POC</span></div><h2>Enablement</h2>'+
+      '<div class="tree">'+
+        tn(0,'Found','Adoption gap found','Post-launch usage lagged behind what the product could do.')+
+        '<i class="tc" data-s="0"></i>'+
+        tn(0,'Found','Balance data analytics','Payment histories and outstanding balances, analyzed in real time.')+
+        '<i class="tc" data-s="1"></i>'+
+        tn(1,'Drove','Sales enablement: AI POC','Intelligent prompts that target high-probability accounts.')+
+        '<i class="tc" data-s="2"></i>'+
+        '<div class="fork" data-s="2">'+
+          '<div class="br" data-s="2"><span class="tag t-drove">Drove</span><b>New product lines</b><span class="d">Balances above a threshold open EMI and third-party financing.</span>'+
+            '<label class="nf" for="thr-'+c+'">Balances above $<input id="thr-'+c+'" type="number" inputmode="numeric" min="0" step="100" value="3000" data-in="thr"></label></div>'+
+          '<div class="br" data-s="2"><span class="tag t-drove">Drove</span><b>AI across the organization</b><span class="d">AI-assisted prompts inside product workflows, adopted team by team.</span>'+
+            '<button class="chip" type="button" data-act="pc" aria-pressed="false">Example prompt</button>'+
+            '<div class="pcard" data-out="pcard" hidden><small class="ex">In-product prompt &middot; example</small><b>$48,200 outstanding</b><span>12 accounts likely to pay, based on payment history.</span><span class="btn fake">Collect now</span></div></div>'+
+        '</div>'+
+        '<i class="tc" data-s="3"></i>'+
+        '<div class="res2" data-s="3"><b>5x adoption</b><span>Monthly revenue <button class="blur" type="button" aria-label="Monthly revenue before and after, blurred. Hover or tap to reveal."><span class="num">$30K &rarr; $143K+</span></button></span></div>'+
       '</div>'+
     '</div></section>'+
 
@@ -613,6 +642,10 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
     $$('[data-out="chl"]').forEach(function(e){e.textContent=chl});
     $$('[data-out="pml"]').forEach(function(e){e.textContent=pml});
     $$('[data-out="dvnote"]').forEach(function(e){e.textContent=note});
+    $$('.tree [data-s]').forEach(function(e){e.classList.toggle('on',S.f_find>=+e.dataset.s)});
+    var pcv=S.pcOn||(S.f_find>=3&&window.innerWidth>520);
+    $$('[data-out="pcard"]').forEach(function(e){e.hidden=!pcv});
+    $$('[data-act="pc"]').forEach(function(b){b.setAttribute('aria-pressed',pcv?'true':'false')});
     $$('[data-view]').forEach(function(e){e.hidden=e.dataset.view!==S.view});
     $$('[data-out="banner"]').forEach(function(e){
       e.innerHTML='<div><small>In-product prompt &middot; example</small><b class="big">'+money(S.out)+'</b><span class="t">outstanding at your location</span></div><span class="btn fake">Collect now</span>';
@@ -735,6 +768,8 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
       var idx=FR[st.dataset.key].findIndex(function(f){return f['f_'+fl]===j});
       if(idx>=0)goFrame(st,idx);return;
     }
+    if(t.classList.contains('tn')){goFrame(st,+t.dataset.s);return}
+    if(t.dataset.act==='pc'){S.pcOn=!S.pcOn;render();return}
     if(t.dataset.act==='selall'){
       var all=selState().every(Boolean);S.auto=false;S.sel=ROWS.map(function(){return !all});render();return;
     }
@@ -761,7 +796,7 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
   function wrapScroll(){
     var t2=top(copies[1]),t3=top(copies[2]),h=t3-t2,y=window.pageYOffset;
     if(y>=t3){window.scrollTo(0,y-h);loops++;gcTrack('loop/'+loops,'Completed loop '+loops,true)}
-    else if(y<t2){window.scrollTo(0,y+h);loops=Math.max(0,loops-1)}
+    else if(y<t2){window.scrollTo(0,t2)}
   }
   function update(){
     var vh=window.innerHeight,mid=vh*0.45,cur=null;
@@ -775,7 +810,7 @@ input.thr.nudge::-moz-range-thumb{animation:ring 1.6s ease-out infinite}
       if(key==='core'){S.pc=p;lanes()}
       if(key==='ingest')animIngest(st,p);
       if(key==='journey')animJourney(st,p);
-      if(key==='find'&&S.view==='fin')nudge();
+      
     });
     var tt=$('#toTop');tt.hidden=!(window.pageYOffset>T2+vh*0.8);
     if(!S.scrolled&&Math.abs(window.pageYOffset-T2)>vh*0.12)S.scrolled=true;
